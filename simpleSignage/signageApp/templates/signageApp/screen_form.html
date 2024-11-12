@@ -1,0 +1,14 @@
+{% extends "signageApp/layout.html" %}
+
+{% block title %}Create Screen{% endblock %}
+
+{% block content %}
+    <h1 class="text"> Create Screen </h1>
+    <div class="form-container">
+        <form method="post" class="jumbotron" action="{% url 'screen_create' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success btn-block" type="submit">Create</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Screen Background Video with Sidebar Clock</title>
+    <style>
+        /* Embedded CSS from style.css */
+
+        /* Full-Screen Background Video Container */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* Full page styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+        }
+        /* Sidebar styling */
+        .sidebar {
+            width: 50%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        /* Clock styling inside the sidebar */
+        #live-clock .date {
+             display: flex;
+            font-size: 1.5em;
+            font-weight: 300;
+            color: #d3d3d3;
+            margin-bottom: 10px;
+        }
+        #live-clock {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #live-clock .time {
+            font-size: 3em;
+            font-weight: 500;
+            margin-bottom: 10px;
+        
+        }
+        /* Weather Widget Styling */
+        .weather-widget {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #FFFFFF;
+            font-size: 1.2em;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Video -->
+    <div class="video-container">
+        <iframe
+            src="https://www.youtube.com/embed/Wy4bkltgPkw?autoplay=1&mute=1&loop=1&playlist=Wy4bkltgPkw"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+        </iframe>
+    </div>    
+
+    <!-- Sidebar with Clock -->
+    <div class="sidebar">
+        <!-- Clock Display -->
+        <div id="live-clock">
+            <div class="date"></div>
+            <div class="time"></div>
+        </div>
+
+        <!-- New Widget -->
+        <iframe width="850" height="1600" src="https://rss.app/embed/v1/list/UIaE6HbEaCzpUcCJ" frameborder="0"></iframe>    </div>
+
+    <!-- Weather Widget -->
+    <div class="weather-widget">
+        <div id="ww_30d07cb17cb1e" v='1.3' loc='id' a='{"t":"ticker","lang":"ar","sl_lpl":1,"ids":["wl2983"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'>
+            <a href="https://weatherwidget.org/" id="ww_30d07cb17cb1e_u" target="_blank">weatherwidget.org</a>
+        </div>
+        <script async src="https://app3.weatherwidget.org/js/?id=ww_30d07cb17cb1e"></script>
+    </div>
+
+    <!-- JavaScript Clock Function -->
+    <script>
+        // Embedded JavaScript from clock.js
+
+        const timezone = "Africa/Tripoli";
+
+        function updateClock() {
+            const clockElement = document.getElementById("live-clock");
+
+            if (!clockElement) {
+                console.log("Clock element not found");
+                return;
+            }
+
+            const nowDate = new Date().toLocaleDateString("en-US", {
+                timeZone: timezone,
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+
+            const nowTime = new Date().toLocaleTimeString("en-US", {
+                timeZone: timezone,
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true
+            });
+
+            clockElement.innerHTML = `
+                <div class="date">${nowDate}</div>
+                <div class="time">${nowTime}</div>
+            `;
+        }
+
+        // Initialize the clock and update every minute
+        updateClock();
+        setInterval(updateClock, 60000);
+    </script>
+
+</body>
+</html>

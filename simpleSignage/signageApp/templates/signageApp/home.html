@@ -1,0 +1,15 @@
+<!-- extend the base layout-->
+{% extends "signageApp/layout.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<div class="jumbotron tex-center">
+  <h1 class="display-4"> Simple Signage </h1>
+  <p class="lead"> Manage your screens efficiently</p>
+  <hr class="my-4">
+  <p> This is a simple application to manage your screens</p>
+  <a href="{% url 'asset_list' %}" class="btn btn-primary btn-lg" role="button">View Assets</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "signageApp/layout.html" %}
+
+{% block title %}Confirm Delete Asset{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-danger text-white text-center">
+            <h2>Confirm Delete Asset</h2>
+          </div>
+          <div class="card-body">
+            <p class="text-center">Are you sure you want to delete the asset "{{ asset.file_name }}"?</p>
+            <p class="text-center">Please enter the name of the asset to confirm:</p>
+            <form method="post" action="{% url 'asset_delete' asset.file_id %}" onsubmit="return validateAssetName()">
+              {% csrf_token %}
+              <div class="form-group">
+                <input type="text" id="asset_name_input" name="asset_name" class="form-control" placeholder="Enter asset name" required>
+              </div>
+              <div class="form-group text-center">
+                <button type="submit" class="btn btn-danger">Yes</button>
+                <a href="{% url 'asset_list' %}" class="btn btn-secondary">No</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function validateAssetName() {
+      const assetNameInput = document.getElementById('asset_name_input').value;
+      const assetName = "{{ asset.file_name }}";
+      if (assetNameInput !== assetName) {
+        alert('Asset name does not match. Please enter the correct asset name.');
+        return false;
+      }
+      return true;
+    }
+  </script>
+{% endblock %}

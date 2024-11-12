@@ -1,0 +1,43 @@
+{% extends "signageApp/layout.html" %}
+
+{% block title %}Screen List{% endblock %}
+
+{% block content %}
+    <h1 class="text">Screens</h1>
+    <div class="d-flex justify-content-start mb-3">
+        <a href="{% url 'screen_create' %}" class="btn btn-link">Add New Screen</a>
+    </div>
+    <div class="table-responsive" style="height: 40vh; overflow-y: auto;">
+        <table id="screenTable" class="table table-hover">
+            <thead style="position: sticky; top: 0; background-color: white; z-index: 1;">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Screen Path</th>
+                    <th>Location</th>
+                    <th>Orientation</th>
+                    <th>Status</th>
+                    <th>Last Updated</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for screen in screens %}
+                    <tr>
+                        <td>{{ screen.screen_id }}</td>
+                        <td>{{ screen.screen_name }}</td>
+                        <td>{{ screen.screen_path }}</td>
+                        <td>{{ screen.screen_location }}</td>
+                        <td>{{ screen.screen_orientation }}</td>
+                        <td>{{ screen.screen_status }}</td>
+                        <td>{{ screen.screen_last_updated }}</td>
+                        <td>
+                            <a href="{% url 'screen_delete' screen.screen_id %}" class="btn btn-danger btn-sm delete-btn" role="button">Delete</a>
+                            <a href="{% url 'screen_display' screen.screen_path %}" class="btn btn-success btn-sm preview-btn" role="button">Preview</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

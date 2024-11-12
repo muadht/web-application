@@ -1,0 +1,37 @@
+{% extends "signageApp/layout.html" %}
+
+{% block title %}Asset List{% endblock %}
+
+{% block content %}
+    <h1 class="text">Assets</h1>
+    <div class="d-flex justify-content-start mb-3">
+        <a href="{% url 'asset_create' %}" class="btn btn-link">Add New Asset</a>
+    </div>
+    <table id="assetTable" class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Name</th>
+                <th>URL</th>
+                <th>Upload Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asset in assets %}
+                <tr>
+                    <td>{{ asset.file_id }}</td>
+                    <td>{{ asset.file_type }}</td>
+                    <td>{{ asset.file_name }}</td>
+                    <td><a href="{{ asset.file_url }}" target="_blank">{{ asset.file_url|truncatechars:30 }}</a></td>
+                    <td>{{ asset.file_upload_date }}</td>
+                    <td>
+                        <a href="{% url 'asset_update' asset.file_id %}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="{% url 'asset_delete' asset.file_id %}" class="btn btn-danger btn-sm delete-btn" role="button">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
